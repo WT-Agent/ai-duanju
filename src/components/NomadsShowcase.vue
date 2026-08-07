@@ -2,10 +2,10 @@
   <section class="nomads-showcase-section">
     <div class="showcase-header">
       <div class="header-left">
-        <h2 class="showcase-title">微短剧爆款剧本与爆点策划实战模板库</h2>
-        <p class="showcase-subtitle">精选战神逆袭、真假千金、穿越科技、悬疑无限流等爆款方案，点击“一键套用”快速策划</p>
+        <h2 class="showcase-title">实战案例与模板库 (Nomads Showcase)</h2>
+        <p class="showcase-subtitle">精选高频实战场景，点击“一键套用”快速生成高质量结果</p>
       </div>
-      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个短剧爆款模板</span>
+      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个实战模板</span>
     </div>
 
     <div class="showcase-grid">
@@ -16,7 +16,7 @@
       >
         <div class="card-header">
           <span class="scenario-tag">{{ item.tag }}</span>
-          <span class="usage-count">{{ item.usageCount }} 次生成</span>
+          <span class="usage-count">{{ item.usageCount }} 次应用</span>
         </div>
 
         <div class="card-content">
@@ -41,8 +41,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+const props = defineProps<{
+  appTitle?: string;
+  isImage?: boolean;
+}>();
+
 const emit = defineEmits<{
-  (e: 'apply-template', payload: { prompt: string; scriptType?: string; platform?: string; episodeLength?: string }): void;
+  (e: 'apply-template', payload: { prompt: string; style?: string }): void;
 }>();
 
 export interface ShowcaseItem {
@@ -50,81 +55,105 @@ export interface ShowcaseItem {
   tag: string;
   title: string;
   prompt: string;
-  scriptType?: string;
-  platform?: string;
-  episodeLength?: string;
+  style?: string;
   usageCount: string;
 }
 
-const showcaseItems = computed<ShowcaseItem[]>(() => [
-  {
-    id: 'duanju-1',
-    tag: '战神爽文',
-    title: '战神隐姓埋名入赘豪门与极致打脸',
-    prompt: '策划 80集战神归来题材微短剧，男主龙王隐姓埋名入赘豪门三载遭受冷眼，因女儿遭反派殴打暴怒亮出修罗战神身份，瞬间调集十万退役战警封锁全城，极致打脸反派与势利岳母。',
-    scriptType: '战神战王与爽文逆袭剧本',
-    platform: '抖音短剧',
-    episodeLength: '80-100集长剧全案',
-    usageCount: '98.5k'
-  },
-  {
-    id: 'duanju-2',
-    tag: '豪门逆袭',
-    title: '真假千金血缘反转与黑客大佬回归',
-    prompt: '策划 100集真假千金豪门爽剧，真千金从小被弃乡村，带着顶级神医与全球第一黑客身份空降豪门宴会，当场拆穿假千金伪造的顶级艺术画作与虚假身世，引爆家族震荡。',
-    scriptType: '豪门恩怨与甜宠战术剧本',
-    platform: '微信小程序短剧',
-    episodeLength: '80-100集长剧全案',
-    usageCount: '86.2k'
-  },
-  {
-    id: 'duanju-3',
-    tag: '穿越降维',
-    title: '工科男穿越古代兵临城下硬核造枪炮',
-    prompt: '策划 3-5分钟精致剧情穿越短剧，现代顶级机械工程师意外穿越至古代边关废柴皇子，面对敌军压境，利用现代化学与冶金技术连夜造出红衣大炮与黑火药，降维打击敌方大军。',
-    scriptType: '悬疑脑洞与科幻反转剧本',
-    platform: '快手短剧',
-    episodeLength: '3-5分钟精致剧情',
-    usageCount: '74.1k'
-  },
-  {
-    id: 'duanju-4',
-    tag: '悬疑脑洞',
-    title: '同一天死亡轮回与限时真凶破局',
-    prompt: '策划 悬疑无限流微短剧黄金前3秒，主角陷入每天晚上22点必被神秘黑衣人刺杀的死亡循环，每次复活保留记忆与伤痕，必须在有限的6次循环内找出藏在身边的连环凶手。',
-    scriptType: '微短剧黄金前3秒与大纲策划',
-    platform: '抖音短剧',
-    episodeLength: '1-3分钟短小精悍',
-    usageCount: '69.8k'
-  },
-  {
-    id: 'duanju-5',
-    tag: '甜宠契约',
-    title: '替嫁残疾霸总与扮猪吃老虎反转',
-    prompt: '策划 80集甜宠契约短剧，女主被迫替心机妹妹嫁给轮椅上的废柴霸总，婚后发现霸总竟是掌控全球金融命脉的神秘大鳄，二人假戏真做联手惩治家族恶毒继母。',
-    scriptType: '豪门恩怨与甜宠战术剧本',
-    platform: '微信小程序短剧',
-    episodeLength: '80-100集长剧全案',
-    usageCount: '63.4k'
-  },
-  {
-    id: 'duanju-6',
-    tag: '民俗惊悚',
-    title: '深夜怪谈公寓与绝对不可违反的规则',
-    prompt: '策划 悬疑怪谈短剧，主角入住租金极低的复古公寓，门缝下塞入张血色守则（1.半夜12点后不可回应镜中叩门声；2.看到穿红衣的女童必须闭眼倒退三步），通过规则破局绝地反杀。',
-    scriptType: '悬疑脑洞与科幻反转剧本',
-    platform: '海外Shorts',
-    episodeLength: '1-3分钟短小精悍',
-    usageCount: '52.7k'
+// 模拟实战案例数据库（支持根据文本/图像类及应用主题切换）
+const showcaseItems = computed<ShowcaseItem[]>(() => {
+  if (props.isImage) {
+    return [
+      {
+        id: 'img-1',
+        tag: '写真肖像',
+        title: '商务精英形象照',
+        prompt: '高端写字楼背景，身穿深蓝色西装，眼神自信专注，赛博朋克光影效果',
+        style: '<photography>',
+        usageCount: '18.5k'
+      },
+      {
+        id: 'img-2',
+        tag: '概念插画',
+        title: '未来科幻城市海报',
+        prompt: '霓虹灯光的赛博朋克立体城市，飞行汽车，高品质概念插画，8k分辨率',
+        style: '<illustration>',
+        usageCount: '24.1k'
+      },
+      {
+        id: 'img-3',
+        tag: '二次元动漫',
+        title: '日系国潮动漫角色',
+        prompt: '穿着现代汉服的国风少年，手持纸伞，水彩漫感，唯美光感与柔光滤镜',
+        style: '<anime>',
+        usageCount: '15.9k'
+      },
+      {
+        id: 'img-4',
+        tag: '水彩艺术',
+        title: '治愈系自然风景画',
+        prompt: '晨雾中的森林湖泊，阳光穿透树林，水彩渐变质感，温馨治愈风格',
+        style: '<watercolor>',
+        usageCount: '12.3k'
+      }
+    ];
+  } else {
+    return [
+      {
+        id: 'text-1',
+        tag: '职场总结',
+        title: '周报 OKR 成果提炼',
+        prompt: '本周完成了核心模块优化与线上异常排查，请帮我梳理为具备量化指标的 OKR 汇报文案',
+        style: '专业干练，结果导向',
+        usageCount: '32.8k'
+      },
+      {
+        id: 'text-2',
+        tag: '高情商沟通',
+        title: '拒绝不合理加班话术',
+        prompt: '领导在周末突然布置非紧急任务，如何高情商、委婉且有理有据地推迟到工作日处理？',
+        style: '高情商，委婉，有情调',
+        usageCount: '28.4k'
+      },
+      {
+        id: 'text-3',
+        tag: '短视频文案',
+        title: '知识干货吸睛开头',
+        prompt: '准备制作一条关于高效学习法的短视频，设计 3 个能在前 3 秒留住用户的爆款口播开头',
+        style: '专业干练，结果导向',
+        usageCount: '45.1k'
+      },
+      {
+        id: 'text-4',
+        tag: '商务公文',
+        title: '跨部门协同申请函',
+        prompt: '因项目上线需要研发部门配合联调，撰写一份正式、严谨且明确时间节点的协同申请书',
+        style: '专业干练，结果导向',
+        usageCount: '19.7k'
+      },
+      {
+        id: 'text-5',
+        tag: '小红书种草',
+        title: '实战干货笔记排版',
+        prompt: '分享 5 个提升日常工作效率的文字工具，语言亲切，搭配吸引人的标题与 Emoji 排版',
+        style: '高情商，委婉，有情调',
+        usageCount: '36.2k'
+      },
+      {
+        id: 'text-6',
+        tag: '学术润色',
+        title: '论文摘要与结论重构',
+        prompt: '将以下粗糙的研究结论重写为学术规范、逻辑严密且无语法语病的论文摘要总结',
+        style: '专业干练，结果导向',
+        usageCount: '22.0k'
+      }
+    ];
   }
-]);
+});
 
 function applyTemplate(item: ShowcaseItem) {
   emit('apply-template', {
     prompt: item.prompt,
-    scriptType: item.scriptType,
-    platform: item.platform,
-    episodeLength: item.episodeLength
+    style: item.style
   });
 }
 </script>
